@@ -8,11 +8,14 @@ type Person = record {
 type PersonCreateDto = record { age : nat32; name : text };
 type PersonUpdateDto = record { id : nat32; age : opt nat32; name : opt text };
 type QueryParamsDto = record { offset : nat32; limit : nat32 };
-type Result = variant { Ok : Person; Err : text };
-type Result_1 = variant { Ok : vec Person; Err : text };
+type Result = variant { Ok : int32; Err : text };
+type Result_1 = variant { Ok : Person; Err : text };
+type Result_2 = variant { Ok : vec Person; Err : text };
 service : () -> {
-  person_create : (PersonCreateDto) -> (Result);
-  person_delete : (nat32) -> (Result);
-  person_query : (QueryParamsDto) -> (Result_1) query;
-  person_update : (PersonUpdateDto) -> (Result);
+  person_count : () -> (Result) query;
+  person_create : (PersonCreateDto) -> (Result_1);
+  person_delete : (nat32) -> (Result_1);
+  person_get : (nat32) -> (Result_1);
+  person_query : (QueryParamsDto) -> (Result_2) query;
+  person_update : (PersonUpdateDto) -> (Result_1);
 }
