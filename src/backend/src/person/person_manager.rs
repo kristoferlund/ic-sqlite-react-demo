@@ -1,0 +1,140 @@
+use super::person_types::{Person, PersonCreateDto, PersonUpdateDto, QueryParamsDto};
+use ic_rusqlite::{params_from_iter, with_connection, ToSql};
+
+pub struct PersonManager {}
+
+impl PersonManager {
+    pub fn get(id: u32) -> Result<Person, String> {
+        with_connection(|conn| {
+            let sql = r#"
+                SELECT
+                  id,
+                  name,
+                  age,
+                  created_at,
+                  updated_at
+                FROM person
+                WHERE id = ?1
+            "#;
+
+            conn.query_row(sql, (id as i64,), |row| {
+                Ok(Person {
+                    id: row.get::<_, i64>(0)? as i32,
+                    name: row.get(1)?,
+                    age: row.get::<_, i64>(2)? as i32,
+                    created_at: row.get::<_, i64>(3)?,
+                    updated_at: row.get::<_, i64>(4)?,
+                })
+            })
+            .map_err(|e| e.to_string())
+        })
+    }
+
+    pub fn create(dto: PersonCreateDto) -> Result<Person, String> {
+        with_connection(|conn| {
+            let sql = r#"
+            INSERT INTO person (name, age)
+            VALUES (?1, ?2)
+            RETURNING
+              id,
+              name,
+              age,
+              created_at,
+              updated_at
+        "#;
+
+            conn.query_row(sql, (dto.name.as_ref(), dto.age), |row| {
+                Ok(Person {
+                    id: row.get(0)?,
+                    name: row.get(1)?,
+                    age: row.get(2)?,
+                    created_at: row.get::<_, i64>(3)?, // epoch seconds
+                    updated_at: row.get::<_, i64>(4)?,
+                })
+            })
+            .map_err(|e| e.to_string())
+        })
+    }
+
+    pub fn update(dto: PersonUpdateDto) -> Result<Person, String> {
+        with_connection(|conn| {
+            let mut sets: Vec<&'static str> = Vec::new();
+            let mut binds: Vec<Box<dyn ToSql>> = Vec::new();
+
+            if let Some(ref name) = dto.name {
+                sets.push("name = ?");
+                binds.push(Box::new(name.as_ref()));
+            }
+            if let Some(age) = dto.age {
+                sets.push("age = ?");
+                binds.push(Box::new(age as i64));
+            }
+            if sets.is_empty() {
+                return Err("no fields to update".into());
+            }
+            sets.push("updated_at = strftime('%s','now')");
+
+            let sql = format!(
+                "UPDATE person SET {} WHERE id = ? RETURNING id, name, age, created_at, updated_at",
+                sets.join(", ")
+            );
+            binds.push(Box::new(dto.id as i64));
+
+            conn.query_row(&sql, params_from_iter(binds), |row| {
+                Ok(Person {
+                    id: row.get::<_, i64>(0)? as i32,
+                    name: row.get(1)?,
+                    age: row.get::<_, i64>(2)? as i32,
+                    created_at: row.get::<_, i64>(3)?,
+                    updated_at: row.get::<_, i64>(4)?,
+                })
+            })
+            .map_err(|e| e.to_string())
+        })
+    }
+
+    pub fn delete(id: u32) -> Result<Person, String> {
+        let person = Self::get(id)?;
+
+        with_connection(|conn| {
+            conn.execute("delete from person where id=?1", (id,))
+                .map_err(|err| format!("{err:?}"))?;
+
+            Ok(person)
+        })
+    }
+
+    pub fn query(params: QueryParamsDto) -> Result<Vec<Person>, String> {
+        with_connection(|conn| {
+            let sql = r#"
+            SELECT
+              id,
+              name,
+              age,
+              created_at,
+              updated_at
+            FROM person
+            ORDER BY id
+            LIMIT ?1 OFFSET ?2
+        "#;
+
+            let mut stmt = conn.prepare(sql).map_err(|e| e.to_string())?;
+
+            let rows = stmt
+                .query_map((params.limit as i64, params.offset as i64), |row| {
+                    Ok(Person {
+                        id: row.get::<_, i64>(0)? as i32,
+                        name: row.get(1)?,
+                        age: row.get::<_, i64>(2)? as i32,
+                        created_at: row.get::<_, i64>(3)?,
+                        updated_at: row.get::<_, i64>(4)?,
+                    })
+                })
+                .map_err(|e| e.to_string())?;
+
+            // Collect all Person results (propagate row mapping errors)
+            rows.collect::<ic_rusqlite::Result<Vec<_>>>()
+                .map_err(|e| e.to_string())
+        })
+    }
+}

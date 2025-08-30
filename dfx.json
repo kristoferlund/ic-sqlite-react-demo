@@ -1,0 +1,41 @@
+{
+  "canisters": {
+    "backend": {
+      "candid": "src/backend/backend.did",
+      "package": "backend",
+      "declarations": {
+        "output": "src/backend/declarations"
+      },
+      "build": [
+        "bash scripts/build-backend.sh"
+      ],
+      "wasm": "target/wasm32-wasip1/release/backend_wasi2ic.wasm",
+      "type": "custom",
+      "metadata": [
+        {
+          "name": "candid:service"
+        }
+      ]
+    },
+    "frontend": {
+      "dependencies": [
+        "backend"
+      ],
+      "source": [
+        "src/frontend/dist"
+      ],
+      "type": "assets",
+      "declarations": {
+        "output": "src/frontend/declarations"
+      }
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
