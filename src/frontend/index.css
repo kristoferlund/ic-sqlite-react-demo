@@ -20,7 +20,7 @@ body {
 }
 
 main {
-  @apply w-full h-lvh flex justify-center items-center bg-radial-[at_50%_50%] from-[#1e005d] to-black to-50% size-24 rounded-full;
+  @apply w-full min-h-screen flex flex-col items-center bg-radial-[at_50%_50%] from-[#1e005d] to-black to-50% size-24 rounded-full;
 }
 
 h1 {
