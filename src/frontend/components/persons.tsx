@@ -100,7 +100,7 @@ export default function Persons() {
       <div className="flex justify-between items-center">
         <h3 className="text-2xl font-semibold">Persons</h3>
         <Link to="/add-person">
-          <Button variant="outline" className="gap-2">
+          <Button className="gap-2">
             <UserPlus className="h-4 w-4" />
             Add Person
           </Button>
@@ -112,52 +112,51 @@ export default function Persons() {
           <div>No persons found. Add your first person!</div>
         </div>
       ) : (
-        <div className="bg-white/10 rounded-lg overflow-hidden">
+        <div className="overflow-hidden text-xs">
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/20">
-                <th className="text-left p-4 font-semibold">ID</th>
-                <th className="text-left p-4 font-semibold">Name</th>
-                <th className="text-left p-4 font-semibold">Age</th>
-                <th className="text-right p-4 font-semibold">Actions</th>
+                <th className="text-left py-4 font-semibold">Name</th>
+                <th className="text-left py-4 font-semibold">Age</th>
+                <th className="text-right py-4 font-semibold"></th>
               </tr>
             </thead>
             <tbody>
               {persons.map((person) => (
                 <tr
                   key={person.id}
-                  className="border-b border-white/10 hover:bg-white/5 transition-colors"
+                  className="border-b border-white/10"
                 >
-                  <td className="p-4">{person.id}</td>
-                  <td className="p-4">
+                  <td className="py-4">
                     {editingId === person.id ? (
-                      <Input
-                        type="text"
-                        value={editName}
-                        onChange={(e) => { setEditName(e.target.value); }}
-                        className="bg-white/10 border-white/20 text-white h-8"
-                        autoFocus
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            handleSaveEdit();
-                          } else if (e.key === "Escape") {
-                            handleCancelEdit();
-                          }
-                        }}
-                      />
+                      <div className="pr-4 pl-1">
+                        <Input
+                          type="text"
+                          value={editName}
+                          onChange={(e) => { setEditName(e.target.value); }}
+                          className="bg-white/10 border-white/20 text-white h-8 text-xs"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              handleSaveEdit();
+                            } else if (e.key === "Escape") {
+                              handleCancelEdit();
+                            }
+                          }}
+                        />
+                      </div>
                     ) : (
                       person.name
                     )}
                   </td>
-                  <td className="p-4">{person.age}</td>
-                  <td className="p-4 text-right">
+                  <td className="py-4">{person.age}</td>
+                  <td className="py-4 text-right">
                     {editingId === person.id ? (
                       <div className="flex gap-2 justify-end">
                         <Button
                           onClick={handleSaveEdit}
                           variant="ghost"
                           size="icon"
-                          className="hover:bg-green-500/20 hover:text-green-300"
                           disabled={updatePerson.isPending}
                         >
                           <Check className="h-4 w-4" />
@@ -166,7 +165,6 @@ export default function Persons() {
                           onClick={handleCancelEdit}
                           variant="ghost"
                           size="icon"
-                          className="hover:bg-gray-500/20"
                           disabled={updatePerson.isPending}
                         >
                           <X className="h-4 w-4" />
@@ -178,7 +176,6 @@ export default function Persons() {
                           onClick={() => { handleEdit(person); }}
                           variant="ghost"
                           size="icon"
-                          className="hover:bg-blue-500/20 hover:text-blue-300"
                         >
                           <Edit2 className="h-4 w-4" />
                         </Button>
@@ -186,7 +183,6 @@ export default function Persons() {
                           onClick={() => handleDelete(person.id)}
                           variant="ghost"
                           size="icon"
-                          className="hover:bg-red-500/20 hover:text-red-300"
                           disabled={deletePerson.isPending}
                         >
                           <Trash2 className="h-4 w-4" />

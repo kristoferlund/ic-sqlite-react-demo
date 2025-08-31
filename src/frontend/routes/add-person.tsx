@@ -54,7 +54,7 @@ function AddPerson() {
   };
 
   return (
-    <div className="flex flex-col bg-[#29ace2] p-10 rounded-xl text-white gap-6 w-full">
+    <div className="flex flex-col bg-card p-10 rounded-xl text-white gap-6 w-full">
       <div className="flex items-center gap-4">
         <Button
           onClick={() => navigate({ to: "/" })}
@@ -108,22 +108,21 @@ function AddPerson() {
 
         <div className="flex gap-3 mt-4">
           <Button
-            type="submit"
-            variant="outline"
-            className="flex-1 gap-2"
-            disabled={createPerson.isPending}
-          >
-            <UserPlus className="h-4 w-4" />
-            {createPerson.isPending ? "Creating..." : "Create Person"}
-          </Button>
-          <Button
             type="button"
-            variant="ghost"
+            variant="outline"
             onClick={() => navigate({ to: "/" })}
             className="flex-1 hover:bg-white/20"
             disabled={createPerson.isPending}
           >
             Cancel
+          </Button>
+          <Button
+            type="submit"
+            className="flex-1 gap-2"
+            disabled={createPerson.isPending}
+          >
+            <UserPlus className="h-4 w-4" />
+            {createPerson.isPending ? "Creating..." : "Create Person"}
           </Button>
         </div>
 

@@ -7,7 +7,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="flex flex-col bg-[#29ace2] p-10 rounded-xl items-center text-white gap-5 w-full max-w-4xl">
+    <div className="flex flex-col bg-card p-10 rounded-xl items-center text-white gap-5 w-full max-w-4xl">
       <Persons />
     </div>
   );
