@@ -47,7 +47,7 @@ function AddPerson() {
       });
 
       // Navigate back to home page after successful creation
-      navigate({ to: "/" });
+      void navigate({ to: "/" });
     } catch (error) {
       console.error("Failed to create person:", error);
     }
@@ -57,7 +57,7 @@ function AddPerson() {
     <div className="flex flex-col bg-card p-10 rounded-xl text-white gap-6 w-full">
       <div className="flex items-center gap-4">
         <Button
-          onClick={() => navigate({ to: "/" })}
+          onClick={() => void navigate({ to: "/" })}
           variant="ghost"
           size="icon"
           className="hover:bg-white/20"
@@ -67,7 +67,10 @@ function AddPerson() {
         <h2 className="text-2xl font-semibold">Add New Person</h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form
+        onSubmit={(e) => void handleSubmit(e)}
+        className="flex flex-col gap-4"
+      >
         <div className="flex flex-col gap-2">
           <label htmlFor="name" className="text-sm font-medium">
             Name
@@ -76,7 +79,9 @@ function AddPerson() {
             id="name"
             type="text"
             value={name}
-            onChange={(e) => { setName(e.target.value); }}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
             placeholder="Enter person's name"
             className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
             aria-invalid={!!errors.name}
@@ -94,7 +99,9 @@ function AddPerson() {
             id="age"
             type="number"
             value={age}
-            onChange={(e) => { setAge(e.target.value); }}
+            onChange={(e) => {
+              setAge(e.target.value);
+            }}
             placeholder="Enter person's age"
             className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
             min="0"
@@ -110,7 +117,7 @@ function AddPerson() {
           <Button
             type="button"
             variant="outline"
-            onClick={() => navigate({ to: "/" })}
+            onClick={() => void navigate({ to: "/" })}
             className="flex-1 hover:bg-white/20"
             disabled={createPerson.isPending}
           >
