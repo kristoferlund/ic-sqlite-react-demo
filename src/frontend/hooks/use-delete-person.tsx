@@ -10,7 +10,7 @@ export default function useDeletePerson() {
     },
     onSuccess: () => {
       // Invalidate and refetch persons list after successful deletion
-      queryClient.invalidateQueries({ queryKey: ["query_persons"] });
+      void queryClient.invalidateQueries({ queryKey: ["query_persons"] });
     },
   });
 }

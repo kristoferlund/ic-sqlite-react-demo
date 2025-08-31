@@ -2,18 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { backend } from "../../backend/declarations/index";
 import { PersonUpdateDto } from "src/backend/declarations/backend.did";
 
-// interface UpdatePersonInput {
-//   id: number;
-//   name?: string;
-//   age?: number;
-// }
-//
-// interface PersonUpdateDto {
-//   id: number;
-//   name: [] string;
-//   age?: number;
-// }
-//
 export default function useUpdatePerson() {
   const queryClient = useQueryClient();
 
@@ -23,7 +11,7 @@ export default function useUpdatePerson() {
     },
     onSuccess: () => {
       // Invalidate and refetch persons list after successful update
-      queryClient.invalidateQueries({ queryKey: ["query_persons"] });
+      void queryClient.invalidateQueries({ queryKey: ["query_persons"] });
     },
   });
 }
