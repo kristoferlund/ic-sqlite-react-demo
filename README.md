@@ -1,16 +1,24 @@
-# ICP + React + TypeScript + Vite + Tailwind + Shadcn/UI + Tanstack Query/Router
+# ICP + SQLite + React + TypeScript + Vite + Tailwind + Shadcn/UI + Tanstack Query/Router
 
-This template provides a batteries included setup for an ICP/React application with the latest versions of Vite, TypeScript, Tailwind CSS, Shadcn/UI, SWC, Eslint and Tanstack Query/Router.
+This template provides a batteries-included, production-ready example of a full-stack Internet Computer application with SQLite persistence. It demonstrates proper architecture patterns for building CRUD applications on the ICP, including database migrations, three-layer validation, and clean separation of concerns.
+
+## What This Template Provides
+
+- **Complete CRUD Example**: A working person management system with Create, Read, Update, and Delete operations
+- **SQLite Integration**: Shows how to properly integrate SQLite into a Rust-based Internet Computer canister
+- **Best Practices**: Demonstrates manager/controller patterns, input validation at multiple layers, and type-safe development
+- **AI-Ready Development**: Includes an `agents.md` file to help LLMs understand and work with your project effectively
 
 > [!TIP]
-> Fork this repository as a starting point for your next ICP project.
+> **Getting Started with This Template**
+> 
+> 1. Fork this repository as a starting point for your ICP + SQLite project
+> 2. Review the `agents.md` file to understand the project structure
+> 3. Share the `agents.md` file with your LLM for AI-assisted development
+> 4. Replace the Person entity with your own data models
 >
 > Live demo: <https://upacy-bqaaa-aaaal-qr7qa-cai.icp0.io>
 
-> [!TIP]
-> This template is also available in a version using [ic-reactor](https://www.npmjs.com/package/@ic-reactor/react) instead of Tanstack Query. Check out that version from the [ic-reactor branch](https://github.com/kristoferlund/ic-vite-react-next/tree/ic-reactor).
-
-[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -20,15 +28,37 @@ This template provides a batteries included setup for an ICP/React application w
 
 ## Features
 
-### Backend
+### Example Application: Person Management CRUD
 
-The Rust based backend exposes one endpoint only, the `greet` function that returns a greeting message.
+This template includes a fully functional person management system that demonstrates:
+- **Create**: Add new persons with name and optional age
+- **Read**: List all persons with pagination support
+- **Update**: Modify existing person records
+- **Delete**: Remove persons from the database
+- **Count**: Get total number of records for pagination
 
-### Frontend
+### Backend Architecture
 
-The React/Vite/TS based frontend allows the user to input a name and click a button to fetch the greeting message from the backend.
+The Rust-based backend showcases:
+- **SQLite Integration**: Persistent data storage within the canister using [`ic-rusqlite`](https://github.com/wasm-forge/ic-rusqlite)
+- **Database Migrations**: Automatic schema setup on canister initialization
+- **Manager Pattern**: Static methods for all database operations
+- **Controller Pattern**: Clean separation between IC endpoints and business logic
+- **Three-Layer Validation**:
+  1. SQL constraints at the database level
+  2. Rust new types for type-safe validation
+  3. Frontend form validation for immediate user feedback
+- **Automatic Candid Generation**: Interface definitions extracted from Rust code
 
-Dependencies:
+### Frontend Stack
+
+The React/TypeScript frontend demonstrates:
+- **Tanstack Query**: Data fetching with caching and optimistic updates
+- **Tanstack Router**: Type-safe routing
+- **Form Handling**: Input validation and error display
+- **Responsive UI**: Built with Tailwind CSS 4 and shadcn/ui components
+
+### Key Technologies
 
 - [React 19](https://react.dev): The long awaited upgrade brings form actions, optimistic UI updates while mutating, etc etc.
 - [Vite 6](https://vite.dev/): The most significant major release since Vite 2, featuring a new Environment API for enhanced flexibility, extended framework support, and streamlined performance for modern web development.
@@ -39,29 +69,16 @@ Dependencies:
 - [Eslint 9](https://eslint.org/): The latest release of Eslint introduces the flat configuration API along with new rules and bug fixes.
 - [shadcn/ui](https://ui.shadcn.com/): Yes, shadcn support for Tailwind 4 is finally here!
 
-## Setup, dev environment
+## Why Use This Template?
 
-There are two main ways to set up the dev environment:
+This template is ideal if you want to:
+- Build a data-driven application on the Internet Computer
+- Learn how to properly integrate SQLite with IC canisters
+- Understand best practices for validation and error handling
+- See a real-world example of manager/controller patterns in Rust
+- Get started quickly with AI-assisted development using the included `agents.md` file
 
-### 1. Using a VS Code Dev Container
-
-The dev containers extension lets you use a Docker container as a full-featured
-development environment. This repository includes a dev container configuration
-that you can use to open the project with all the necessary tools and
-dependencies pre-installed.
-
-Pre-requisites:
-
-- [Docker](https://www.docker.com/products/docker-desktop)
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-
-Once Docker, Visual Studio Code and the Dev Containers Extension are installed,
-you can open the project in a container by clicking the button below:
-
-[![Open locally in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/kristoferlund/ic-vite-react-next)
-
-### 2. Setup manually
+## Setup & Development
 
 Pre-requisites:
 
@@ -99,24 +116,6 @@ During development, you can run the frontend with hot reloading using Vite.
 pnpm run dev
 ```
 
-## Contributors
-
-<!-- readme: collaborators,contributors -start -->
-<table>
-	<tbody>
-		<tr>
-            <td align="center">
-                <a href="https://github.com/kristoferlund">
-                    <img src="https://avatars.githubusercontent.com/u/9698363?v=4" width="100;" alt="kristoferlund"/>
-                    <br />
-                    <sub><b>Kristofer</b></sub>
-                </a>
-            </td>
-		</tr>
-	<tbody>
-</table>
-<!-- readme: collaborators,contributors -end -->
-
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more
@@ -127,12 +126,10 @@ details.
 Contributions are welcome! Please open an issue or submit a pull request if you
 have any suggestions or improvements.
 
-[contributors-shield]: https://img.shields.io/github/contributors/kristoferlund/ic-vite-react-next.svg?style=for-the-badge
-[contributors-url]: https://github.com/kristoferlund/ic-vite-react-next/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/kristoferlund/ic-vite-react-next.svg?style=for-the-badge
-[forks-url]: https://github.com/kristoferlund/ic-vite-react-next/network/members
-[stars-shield]: https://img.shields.io/github/stars/kristoferlund/ic-vite-react-next?style=for-the-badge
-[stars-url]: https://github.com/kristoferlund/ic-vite-react-next/stargazers
-[issues-shield]: https://img.shields.io/github/issues/kristoferlund/ic-vite-react-next.svg?style=for-the-badge
-[issues-url]: https://github.com/kristoferlund/ic-vite-react-next/issues
-[license-shield]: https://img.shields.io/github/license/kristoferlund/ic-vite-react-next.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/kristoferlund/ic-sqlite-react-demo.svg?style=for-the-badge
+[forks-url]: https://github.com/kristoferlund/ic-sqlite-react-demo/network/members
+[stars-shield]: https://img.shields.io/github/stars/kristoferlund/ic-sqlite-react-demo?style=for-the-badge
+[stars-url]: https://github.com/kristoferlund/ic-sqlite-react-demo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/kristoferlund/ic-sqlite-react-demo.svg?style=for-the-badge
+[issues-url]: https://github.com/kristoferlund/ic-sqlite-react-demo/issues
+[license-shield]: https://img.shields.io/github/license/kristoferlund/ic-sqlite-react-demo.svg?style=for-the-badge
