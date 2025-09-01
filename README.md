@@ -11,13 +11,13 @@ This template provides a batteries-included, production-ready example of a full-
 
 > [!TIP]
 > **Getting Started with This Template**
-> 
+>
 > 1. Fork this repository as a starting point for your ICP + SQLite project
 > 2. Review the `agents.md` file to understand the project structure
 > 3. Share the `agents.md` file with your LLM for AI-assisted development
 > 4. Replace the Person entity with your own data models
 >
-> Live demo: <https://upacy-bqaaa-aaaal-qr7qa-cai.icp0.io>
+> Live demo: <https://ml463-eyaaa-aaaai-q33mq-cai.icp0.io>
 
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -84,6 +84,7 @@ Pre-requisites:
 
 - [Local Internet Computer dev environment](https://internetcomputer.org/docs/current/developer-docs/backend/rust/dev-env)
 - [pnpm](https://pnpm.io/installation)
+- **WASI SDK**: Using SQLite in an ICP canister requires compiling for the WebAssembly System Interface (WASI). Follow the setup instructions in the [ic-rusqlite repository](https://github.com/wasm-forge/ic-rusqlite) to install the WASI SDK and configure your development environment.
 
 Once you have the prerequisites installed, you can clone this repository and run
 the project.
