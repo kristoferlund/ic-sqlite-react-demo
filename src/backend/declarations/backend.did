@@ -15,7 +15,7 @@ service : () -> {
   person_count : () -> (Result) query;
   person_create : (PersonCreateDto) -> (Result_1);
   person_delete : (nat32) -> (Result_1);
-  person_get : (nat32) -> (Result_1);
+  person_get : (nat32) -> (Result_1) query;
   person_query : (QueryParamsDto) -> (Result_2) query;
   person_update : (PersonUpdateDto) -> (Result_1);
 }

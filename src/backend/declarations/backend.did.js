@@ -23,7 +23,7 @@ export const idlFactory = ({ IDL }) => {
     'person_count' : IDL.Func([], [Result], ['query']),
     'person_create' : IDL.Func([PersonCreateDto], [Result_1], []),
     'person_delete' : IDL.Func([IDL.Nat32], [Result_1], []),
-    'person_get' : IDL.Func([IDL.Nat32], [Result_1], []),
+    'person_get' : IDL.Func([IDL.Nat32], [Result_1], ['query']),
     'person_query' : IDL.Func([QueryParamsDto], [Result_2], ['query']),
     'person_update' : IDL.Func([PersonUpdateDto], [Result_1], []),
   });

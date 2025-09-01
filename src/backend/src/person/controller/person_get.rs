@@ -1,7 +1,7 @@
 use crate::person::{person_manager::PersonManager, person_types::Person};
-use ic_cdk::update;
+use ic_cdk::query;
 
-#[update]
+#[query]
 pub fn person_get(id: u32) -> Result<Person, String> {
     PersonManager::get(id)
 }
