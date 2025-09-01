@@ -4,7 +4,7 @@ use ic_rusqlite::with_connection;
 pub struct PersonManager {}
 
 impl PersonManager {
-    pub fn get(id: u32) -> Result<Person, String> {
+    pub fn get(id: i64) -> Result<Person, String> {
         with_connection(|conn| {
             let sql = r#"
                 SELECT
@@ -17,13 +17,13 @@ impl PersonManager {
                 WHERE id = ?1
             "#;
 
-            conn.query_row(sql, (id as i64,), |row| {
+            conn.query_row(sql, (id,), |row| {
                 Ok(Person {
-                    id: row.get::<_, i64>(0)? as i32,
+                    id: row.get(0)?,
                     name: row.get(1)?,
-                    age: row.get::<_, i64>(2)? as i32,
-                    created_at: row.get::<_, i64>(3)?,
-                    updated_at: row.get::<_, i64>(4)?,
+                    age: row.get::<_, i64>(2)? as u32,
+                    created_at: row.get(3)?,
+                    updated_at: row.get(4)?,
                 })
             })
             .map_err(|e| e.to_string())
@@ -47,9 +47,9 @@ impl PersonManager {
                 Ok(Person {
                     id: row.get(0)?,
                     name: row.get(1)?,
-                    age: row.get(2)?,
-                    created_at: row.get::<_, i64>(3)?, // epoch seconds
-                    updated_at: row.get::<_, i64>(4)?,
+                    age: row.get::<_, i64>(2)? as u32,
+                    created_at: row.get(3)?, // epoch seconds
+                    updated_at: row.get(4)?,
                 })
             })
             .map_err(|e| e.to_string())
@@ -69,18 +69,14 @@ impl PersonManager {
 
             conn.query_row(
                 sql,
-                (
-                    dto.name.as_ref().map(|n| n.as_ref()),
-                    dto.age.map(|a| a as i64),
-                    dto.id as i64,
-                ),
+                (dto.name.as_ref().map(|n| n.as_ref()), dto.age, dto.id),
                 |row| {
                     Ok(Person {
-                        id: row.get::<_, i64>(0)? as i32,
+                        id: row.get(0)?,
                         name: row.get(1)?,
-                        age: row.get::<_, i64>(2)? as i32,
-                        created_at: row.get::<_, i64>(3)?,
-                        updated_at: row.get::<_, i64>(4)?,
+                        age: row.get::<_, i64>(2)? as u32,
+                        created_at: row.get(3)?,
+                        updated_at: row.get(4)?,
                     })
                 },
             )
@@ -88,7 +84,7 @@ impl PersonManager {
         })
     }
 
-    pub fn delete(id: u32) -> Result<Person, String> {
+    pub fn delete(id: i64) -> Result<Person, String> {
         with_connection(|conn| {
             let sql = r#"
                 DELETE FROM person
@@ -96,13 +92,13 @@ impl PersonManager {
                 RETURNING id, name, age, created_at, updated_at
             "#;
 
-            conn.query_row(sql, (id as i64,), |row| {
+            conn.query_row(sql, (id,), |row| {
                 Ok(Person {
-                    id: row.get::<_, i64>(0)? as i32,
+                    id: row.get(0)?,
                     name: row.get(1)?,
-                    age: row.get::<_, i64>(2)? as i32,
-                    created_at: row.get::<_, i64>(3)?,
-                    updated_at: row.get::<_, i64>(4)?,
+                    age: row.get::<_, i64>(2)? as u32,
+                    created_at: row.get(3)?,
+                    updated_at: row.get(4)?,
                 })
             })
             .map_err(|e| e.to_string())
@@ -128,11 +124,11 @@ impl PersonManager {
             let rows = stmt
                 .query_map((params.limit as i64, params.offset as i64), |row| {
                     Ok(Person {
-                        id: row.get::<_, i64>(0)? as i32,
+                        id: row.get(0)?,
                         name: row.get(1)?,
-                        age: row.get::<_, i64>(2)? as i32,
-                        created_at: row.get::<_, i64>(3)?,
-                        updated_at: row.get::<_, i64>(4)?,
+                        age: row.get::<_, i64>(2)? as u32,
+                        created_at: row.get(3)?,
+                        updated_at: row.get(4)?,
                     })
                 })
                 .map_err(|e| e.to_string())?;
@@ -146,7 +142,7 @@ impl PersonManager {
     pub fn count() -> Result<i32, String> {
         with_connection(|conn| {
             conn.query_row("SELECT COUNT(*) FROM person", [], |row| {
-                row.get::<_, i64>(0).map(|c| c as i32)
+                row.get(0).map(|c: i64| c as i32)
             })
             .map_err(|e| e.to_string())
         })

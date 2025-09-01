@@ -3,7 +3,7 @@ import type { ActorMethod } from '@dfinity/agent';
 import type { IDL } from '@dfinity/candid';
 
 export interface Person {
-  'id' : number,
+  'id' : bigint,
   'age' : number,
   'updated_at' : bigint,
   'name' : string,
@@ -11,7 +11,7 @@ export interface Person {
 }
 export interface PersonCreateDto { 'age' : number, 'name' : string }
 export interface PersonUpdateDto {
-  'id' : number,
+  'id' : bigint,
   'age' : [] | [number],
   'name' : [] | [string],
 }
@@ -25,8 +25,8 @@ export type Result_2 = { 'Ok' : Array<Person> } |
 export interface _SERVICE {
   'person_count' : ActorMethod<[], Result>,
   'person_create' : ActorMethod<[PersonCreateDto], Result_1>,
-  'person_delete' : ActorMethod<[number], Result_1>,
-  'person_get' : ActorMethod<[number], Result_1>,
+  'person_delete' : ActorMethod<[bigint], Result_1>,
+  'person_get' : ActorMethod<[bigint], Result_1>,
   'person_query' : ActorMethod<[QueryParamsDto], Result_2>,
   'person_update' : ActorMethod<[PersonUpdateDto], Result_1>,
 }

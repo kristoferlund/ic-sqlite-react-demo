@@ -6,7 +6,7 @@ export default function useDeletePerson() {
   const { actor: backend } = useBackend();
 
   return useMutation({
-    mutationFn: (id: number) => {
+    mutationFn: (id: bigint) => {
       if (!backend) throw new Error("Backend not available.");
       return backend.person_delete(id);
     },

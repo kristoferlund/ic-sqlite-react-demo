@@ -8,9 +8,11 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 interface Person {
-  id: number;
+  id: bigint;
   name: string;
   age: number;
+  created_at: bigint,
+  updated_at: bigint,
 }
 
 interface PersonRowProps {

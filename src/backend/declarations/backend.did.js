@@ -2,8 +2,8 @@ export const idlFactory = ({ IDL }) => {
   const Result = IDL.Variant({ 'Ok' : IDL.Int32, 'Err' : IDL.Text });
   const PersonCreateDto = IDL.Record({ 'age' : IDL.Nat32, 'name' : IDL.Text });
   const Person = IDL.Record({
-    'id' : IDL.Int32,
-    'age' : IDL.Int32,
+    'id' : IDL.Int64,
+    'age' : IDL.Nat32,
     'updated_at' : IDL.Int64,
     'name' : IDL.Text,
     'created_at' : IDL.Int64,
@@ -15,15 +15,15 @@ export const idlFactory = ({ IDL }) => {
   });
   const Result_2 = IDL.Variant({ 'Ok' : IDL.Vec(Person), 'Err' : IDL.Text });
   const PersonUpdateDto = IDL.Record({
-    'id' : IDL.Nat32,
+    'id' : IDL.Int64,
     'age' : IDL.Opt(IDL.Nat32),
     'name' : IDL.Opt(IDL.Text),
   });
   return IDL.Service({
     'person_count' : IDL.Func([], [Result], ['query']),
     'person_create' : IDL.Func([PersonCreateDto], [Result_1], []),
-    'person_delete' : IDL.Func([IDL.Nat32], [Result_1], []),
-    'person_get' : IDL.Func([IDL.Nat32], [Result_1], ['query']),
+    'person_delete' : IDL.Func([IDL.Int64], [Result_1], []),
+    'person_get' : IDL.Func([IDL.Int64], [Result_1], ['query']),
     'person_query' : IDL.Func([QueryParamsDto], [Result_2], ['query']),
     'person_update' : IDL.Func([PersonUpdateDto], [Result_1], []),
   });
