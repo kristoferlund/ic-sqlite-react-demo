@@ -11,7 +11,7 @@ static MIGRATIONS: &[ic_sql_migrate::Migration] = ic_sql_migrate::include!();
 fn run_migrations() {
     with_connection(|mut conn| {
         let conn: &mut Connection = &mut conn;
-        ic_sql_migrate::up(conn, MIGRATIONS).unwrap();
+        ic_sql_migrate::sqlite::up(conn, MIGRATIONS).unwrap();
     });
 }
 
