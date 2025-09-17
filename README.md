@@ -84,10 +84,8 @@ Pre-requisites:
 
 - [Local Internet Computer dev environment](https://internetcomputer.org/docs/current/developer-docs/backend/rust/dev-env)
 - [pnpm](https://pnpm.io/installation)
-- **WASI SDK**: Using SQLite in an ICP canister requires compiling for the WebAssembly System Interface (WASI). Follow the setup instructions in the [ic-rusqlite repository](https://github.com/wasm-forge/ic-rusqlite) to install the WASI SDK and configure your development environment.
-
-Once you have the prerequisites installed, you can clone this repository and run
-the project.
+- Rust toolchain 
+- [wasi2ic](https://github.com/wasm-forge/wasi2ic) 
 
 ## Running the project
 
