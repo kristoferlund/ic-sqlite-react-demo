@@ -7,7 +7,8 @@
         "output": "src/backend/declarations"
       },
       "build": [
-        "bash scripts/build-backend.sh"
+        "cargo build -p backend --target wasm32-wasip1 --release",
+        "wasi2ic target/wasm32-wasip1/release/backend.wasm target/wasm32-wasip1/release/backend_wasi2ic.wasm"
       ],
       "wasm": "target/wasm32-wasip1/release/backend_wasi2ic.wasm",
       "type": "custom",

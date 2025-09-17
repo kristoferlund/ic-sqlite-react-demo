@@ -9,13 +9,15 @@ crate-type = ["cdylib"]
 [dependencies]
 candid = "0.10.14"
 ic-cdk = "0.18.5"
-ic-rusqlite = "0.3.1"
+ic-rusqlite = { version = "0.4.2", features = [
+  "precompiled",
+], default-features = false }
+ic-sql-migrate = { version = "0.0.4", features = ["sqlite"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0"
 validator = { version = "0.20", features = ["derive"] }
 validator_derive = "0.20.0"
-ic-sql-migrate = { version = "0.0.2", features = ["sqlite"] }
 anyhow = "1.0.99"
 
 [build-dependencies]
-ic-sql-migrate = "0.0.2"
+ic-sql-migrate = { version = "0.0.4", features = ["sqlite"] }
