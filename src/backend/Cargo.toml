@@ -20,4 +20,4 @@ validator_derive = "0.20.0"
 anyhow = "1.0.99"
 
 [build-dependencies]
-ic-sql-migrate = { version = "0.0.4", features = ["sqlite"] }
+ic-sql-migrate = { version = "0.0.4"}
