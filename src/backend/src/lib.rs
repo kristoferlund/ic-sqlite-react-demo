@@ -15,8 +15,15 @@ fn run_migrations() {
     });
 }
 
+unsafe extern "C" {
+    unsafe fn myfunc(x: i32) -> i32;
+}
+
 #[init]
 fn init() {
+    unsafe {
+        myfunc(1);
+    };
     run_migrations();
 }
 
