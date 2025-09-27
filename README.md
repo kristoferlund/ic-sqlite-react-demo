@@ -97,6 +97,12 @@ dfx start --background
 
 ### 2. Install dependencies
 
+The Rust target for WASI:
+```
+rustup target add wasm32-wasip1
+```
+
+pnpm to install JavaScript packages:
 ```
 pnpm install
 ```
