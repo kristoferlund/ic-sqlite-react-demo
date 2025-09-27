@@ -82,9 +82,10 @@ This template is ideal if you want to:
 
 Pre-requisites:
 
-- [Local Internet Computer dev environment](https://internetcomputer.org/docs/current/developer-docs/backend/rust/dev-env)
+- [Rust](https://rust-lang.org/tools/install), including the wasm32-wasip1 target
+- [Node.js](https://nodejs.org/en/download)
 - [pnpm](https://pnpm.io/installation)
-- Rust toolchain 
+- [Internet Computer SDK](https://internetcomputer.org/docs/building-apps/getting-started/install)
 - [wasi2ic](https://github.com/wasm-forge/wasi2ic) 
 
 ## Running the project
@@ -97,12 +98,6 @@ dfx start --background
 
 ### 2. Install dependencies
 
-The Rust target for WASI:
-```
-rustup target add wasm32-wasip1
-```
-
-pnpm to install JavaScript packages:
 ```
 pnpm install
 ```
