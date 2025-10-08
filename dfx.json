@@ -28,7 +28,10 @@
       "type": "assets",
       "declarations": {
         "output": "src/frontend/declarations"
-      }
+      },
+      "build": [
+        "pnpm run build"
+      ]
     }
   },
   "defaults": {
