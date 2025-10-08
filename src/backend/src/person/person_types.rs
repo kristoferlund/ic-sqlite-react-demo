@@ -1,9 +1,8 @@
 use candid::CandidType;
 use ic_rusqlite::ToSql;
 use serde::{Deserialize, Serialize};
-use validator::Validate;
 
-#[derive(Serialize, Deserialize, Debug, Validate, CandidType)]
+#[derive(Serialize, Deserialize, Debug, CandidType)]
 pub struct Person {
     pub id: i64,
 
