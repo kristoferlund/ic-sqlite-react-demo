@@ -23,10 +23,14 @@ function AddPerson() {
       newErrors.name = "Name is required";
     }
 
+    if (name.length < 3 || name.length > 50) {
+      newErrors.name = "Name length must be between 3 and 50"
+    }
+
     if (!age.trim()) {
       newErrors.age = "Age is required";
     } else if (isNaN(Number(age)) || Number(age) < 0 || Number(age) > 150) {
-      newErrors.age = "Age must be a valid number between 0 and 150";
+      newErrors.age = "Age must be between 0 and 150";
     }
 
     setErrors(newErrors);

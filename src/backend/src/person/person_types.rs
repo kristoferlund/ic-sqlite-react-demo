@@ -1,9 +1,8 @@
 use candid::CandidType;
 use ic_rusqlite::ToSql;
 use serde::{Deserialize, Serialize};
-use validator::Validate;
 
-#[derive(Serialize, Deserialize, Debug, Validate, CandidType)]
+#[derive(Serialize, Deserialize, Debug, CandidType)]
 pub struct Person {
     pub id: i64,
 
@@ -26,7 +25,7 @@ impl TryFrom<String> for Name {
         if (3..=50).contains(&n) {
             Ok(Name(s))
         } else {
-            Err("name length must be 3..=50".into())
+            Err("Name length must be between 3 and 50".into())
         }
     }
 }
@@ -46,7 +45,7 @@ impl TryFrom<u32> for Age {
         if (0..=150).contains(&value) {
             Ok(Age(value))
         } else {
-            Err("age must be between 0 and 150".into())
+            Err("Age must be between 0 and 150".into())
         }
     }
 }
