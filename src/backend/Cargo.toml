@@ -15,7 +15,6 @@ ic-rusqlite = { version = "0.4.3", features = [
 ic-sql-migrate = { version = "0.0.4", features = ["sqlite"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-anyhow = "1.0.100"
 
 [build-dependencies]
 ic-sql-migrate = { version = "0.0.4" }
