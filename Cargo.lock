@@ -437,9 +437,9 @@ dependencies = [
 
 [[package]]
 name = "ic-sql-migrate"
-version = "0.0.4"
+version = "0.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6cc486f08089d7eb82d3177df760974fbdd20befe7b485441e44587f87c1eee0"
+checksum = "78ea0c145c4f11388ec39774a3f6d03858d310ce9e508261326628a709e350dd"
 dependencies = [
  "rusqlite",
  "thiserror 2.0.16",
