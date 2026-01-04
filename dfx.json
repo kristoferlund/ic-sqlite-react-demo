@@ -4,7 +4,7 @@
       "candid": "src/backend/backend.did",
       "package": "backend",
       "declarations": {
-        "output": "src/backend/declarations"
+        "bindings": []
       },
       "build": [
         "cargo build -p backend --target wasm32-wasip1 --release",
@@ -27,7 +27,7 @@
       ],
       "type": "assets",
       "declarations": {
-        "output": "src/frontend/declarations"
+        "bindings": []
       },
       "build": [
         "pnpm run build"

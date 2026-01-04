@@ -1,3 +1,4 @@
+import { icpBindgen } from '@icp-sdk/bindgen/plugins/vite';
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
@@ -39,6 +40,10 @@ export default defineConfig({
     environment("all", { prefix: "CANISTER_" }),
     environment("all", { prefix: "DFX_" }),
     tailwindcss(),
+    icpBindgen({
+      didFile: './src/backend/backend.did',
+      outDir: './src/frontend',
+    }),
   ],
   resolve: {
     alias: {
